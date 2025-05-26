@@ -11,7 +11,7 @@ The companies main database structure as seen below consists of one table: Super
 ![alt text](ERD.png)
 
 
-
+# Insights 
 Each query is followed by a business-focused explanation highlighting the implications of the data.
 
 ## 1. Profits Based on Category
