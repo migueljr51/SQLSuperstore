@@ -1,7 +1,7 @@
 
 # Superstore Data Analysis Insights
 
-This README file presents a collection of SQL queries designed to analyze data from the Superstore dataset. The goal is to provide valuable insights for Finance and Marketing executives to drive data-informed business strategies.
+This README file presents a collection of SQL queries designed to analyze data from the Superstore dataset. The goal is to provide valuable insights to drive data-informed business strategies.
 
 Each query is followed by a business-focused explanation highlighting the implications of the data.
 
