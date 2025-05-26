@@ -1,20 +1,4 @@
--- 1. Total Sales and Profit by Region
-/*
-  Purpose: This query aggregates total sales and profit per region, helping understand where revenue is strongest and which regions might need attention due to low profitability.
-  Business Insights:
-  - Which regions contribute the most revenue?
-  - Where should financial strategies focus to improve profitability? 
-*/
-SELECT 
-    Region, 
-    FORMAT(SUM(Sales), 'C') AS Total_Sales, 
-    FORMAT(SUM(Profit), 'C') AS Total_Profit
-FROM Superstore
-GROUP BY Region
-ORDER BY Total_Sales DESC;
-
-
--- 2. Categories Based on Profit
+-- 1. Categories Based on Profit
 /*
   Purpose: This identifies the most profitable product categories, helping to decide where to allocate resources and efforts.
   Business Insights:
@@ -29,7 +13,7 @@ GROUP BY Category
 ORDER BY SUM(Profit) DESC;
 
 
--- 3. Sales and Profit Trends by Sub-Category
+-- 2. Sales and Profit Trends by Sub-Category
 /*
   Purpose: By examining sub-category performance, you can fine tune inventory strategies or pricing to maximize profit margins.
   Business Insights:
@@ -45,7 +29,7 @@ GROUP BY SubCategory
 ORDER BY SUM(Sales) DESC;
 
 
--- 4. Profitability vs. Sales for Each Category
+-- 3. Profitability vs. Sales for Each Category
 /*
   Purpose: Calculates profitability percentage per category to highlight if high sales truly translate to strong profits.
   Business Insights:
@@ -62,7 +46,7 @@ GROUP BY Category
 ORDER BY Profit_Margin_Percentage DESC;
 
 
---5. Monthly Sales Trend Analysis
+--4. Monthly Sales Trend Analysis
 /*
   Purpose: Helps visualize trends over time, identifying seasonal peaks and slow periods.
   Business Insights:
@@ -78,7 +62,7 @@ GROUP BY FORMAT([Order Date], 'yyyy-MM')
 ORDER BY Month ASC;
 
 
--- 6. Profitable Categories Using CTE
+-- 5. Profitable Categories Using CTE
 /*
   Purpose: Creates a temporary result set (SalesSummary) and then retrieves only profitable categories
   Business Insights:
@@ -96,7 +80,7 @@ WITH SalesSummary AS (
 SELECT * FROM SalesSummary WHERE CONVERT(float,REPLACE(REPLACE(Total_Profit, ',', ''), '$', '')) > 10000;
 
 
--- 7. Regional Sales with Window Functions
+-- 6. Regional Sales with Window Functions
 /*
   Purpose: Shows individual sales while also displaying total regional sales alongside each row.
   Business Insights:
@@ -112,7 +96,7 @@ FROM Superstore
 order by Region, Category;
 
 
--- 8. Pivoting Sales Data by Region and CategorY
+-- 7. Pivoting Sales Data by Region and CategorY
 /*
   Purpose: Converts rows into columns for easier reporting by displaying sales per region per category.
   Business Insights:
@@ -129,7 +113,7 @@ FROM Superstore
 GROUP BY Category;
 
 
--- 9. High Volume Customers
+-- 8. High Volume Customers
 /*
   Purpose: Identifies high-volume customers who make frequent purchases.
   Business Insights:
@@ -143,7 +127,7 @@ HAVING COUNT([Order ID]) > 10
 ORDER BY SUM(Sales) DESC;
 
 
--- 10. Region Sales Contribution Percentage
+-- 9. Region Sales Contribution Percentage
 /*
   Purpose: Shows each region's contribution to total sales.
   Business Insights:
@@ -160,7 +144,7 @@ GROUP BY Region
 ORDER BY Sales_Percentage DESC;
 
 
--- 11. Total Sales and Profit by Region
+-- 10. Total Sales and Profit by Region
 /*
   Purpose: Helps to asses calculates revenue performance across different regions.
   Business Insights:
@@ -176,7 +160,7 @@ SELECT * FROM RegionSales
 ORDER BY Total_Sales DESC;
 
 
--- 12. Customer Sales & Profit Analysis
+-- 11. Customer Sales & Profit Analysis
 /*
   Purpose: Helps analyze the most valuable customers by sales and profit.
   Business Insights:
@@ -193,7 +177,7 @@ SELECT [Customer ID], Lifetime_Sales, Lifetime_Profit, --REPLACE(REPLACE(Lifetim
 FROM CustomerLifetimeValue;
 
 
--- 13. Discount Impact on Profitability
+-- 12. Discount Impact on Profitability
 /*
   Purpose: Shows how different discount levels impact profitability.
   Business Insights:
@@ -207,7 +191,7 @@ GROUP BY Discount
 ORDER BY Discount;
 
 
--- 14. Yearly Sales Growth
+-- 13. Yearly Sales Growth
 /*
   Purpose: Calculates year-over-year sales growth to assess business trends.
   Business Insights:
@@ -225,7 +209,7 @@ SELECT Year, FORMAT(Total_Sales, 'C'),
 FROM YearlySales;
 
 
--- 15. Discount by Category
+-- 14. Discount by Category
 /*
   Purpose: Identifies which categories receive the highest discounts.
   Business Insights:
@@ -238,7 +222,7 @@ GROUP BY Category
 ORDER BY Avg_Discount DESC;
 
 
--- 16. Monthly Sales Trend
+-- 15. Monthly Sales Trend
 /*
   Purpose: Helps track monthly revenue trends and identify sales fluctuations.
   Business Insights:

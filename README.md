@@ -5,21 +5,7 @@ This README file presents a collection of SQL queries designed to analyze data f
 
 Each query is followed by a business-focused explanation highlighting the implications of the data.
 
-## 1. Total Sales and Profit by Region
-
-```sql
-SELECT 
-    Region, 
-    FORMAT(SUM(Sales), 'C') AS Total_Sales, 
-    FORMAT(SUM(Profit), 'C') AS Total_Profit
-FROM Superstore
-GROUP BY Region
-ORDER BY Total_Sales DESC;
-```
-
-**Summary:** This query shows how each region performs in terms of revenue and profit. It highlights areas of strong revenue and identifies regions that may need strategic improvement.
-
-## 2. Categories Based on Profit
+## 1. Profits Based on Category
 
 ```sql
 SELECT 
@@ -30,9 +16,11 @@ GROUP BY Category
 ORDER BY SUM(Profit) DESC;
 ```
 
+![alt text](1_ProfitsByCategory.png)
+
 **Summary:** This ranks product categories by profit. It helps prioritize which product lines to expand or promote.
 
-## 3. Sales and Profit Trends by Sub-Category
+## 2. Sales and Profit Trends by Sub-Category
 
 ```sql
 SELECT 
@@ -44,9 +32,11 @@ GROUP BY SubCategory
 ORDER BY SUM(Sales) DESC;
 ```
 
+![alt text](2_SalesAndProfitTrend.png)
+
 **Summary:** Identifies sub-categories that drive sales and profit, helping optimize inventory and pricing strategies.
 
-## 4. Profitability vs. Sales for Each Category
+## 3. Profitability vs. Sales for Each Category
 
 ```sql
 SELECT 
@@ -59,9 +49,11 @@ GROUP BY Category
 ORDER BY Profit_Margin_Percentage DESC;
 ```
 
+![alt text](3_ProfitPercentageByCategory.png)
+
 **Summary:** Compares sales to profit margin to reveal which high-sales categories may have poor profitability.
 
-## 5. Monthly Sales Trend Analysis
+## 4. Monthly Sales Trend Analysis
 
 ```sql
 SELECT 
@@ -73,9 +65,11 @@ GROUP BY FORMAT([Order Date], 'yyyy-MM')
 ORDER BY Month ASC;
 ```
 
+![alt text](4_MonthlySalesTrend.png)
+
 **Summary:** Tracks monthly sales and profit trends to help identify peak periods and seasonal impacts.
 
-## 6. Profitable Categories Using CTE
+## 5. Profitable Categories Using CTE
 
 ```sql
 WITH SalesSummary AS (
@@ -89,23 +83,29 @@ WITH SalesSummary AS (
 SELECT * FROM SalesSummary WHERE CONVERT(float,REPLACE(REPLACE(Total_Profit, ',', ''), '$', '')) > 10000;
 ```
 
+![alt text](5_SalesProfitByCategory.png)
+
 **Summary:** Filters categories to show only those exceeding a $10,000 profit threshold, spotlighting potential growth areas.
 
-## 7. Regional Sales with Window Functions
+## 6. Regional Sales with Window Functions
 
 ```sql
 SELECT 
     Region, 
     Category,
+	SubCategory,
+	[Product Name],
     FORMAT(Sales, 'C') AS Sales, 
     FORMAT(SUM(Sales) OVER (PARTITION BY Region), 'C') AS Regional_Sales
 FROM Superstore
-ORDER BY Region, Category;
+ORDER BY Region, Category, SubCategory;
 ```
+
+![alt text](6_RegionalSales.png)
 
 **Summary:** Combines individual sales records with regional totals for deeper performance insights.
 
-## 8. Pivoting Sales Data by Region and Category
+## 7. Pivoting Sales Data by Region and Category
 
 ```sql
 SELECT 
@@ -118,9 +118,11 @@ FROM Superstore
 GROUP BY Category;
 ```
 
+![alt text](7_SalesDataByRegionAndCategory.png)
+
 **Summary:** Restructures data to compare category sales across all regions, useful for targeting regional strategies.
 
-## 9. High Volume Customers
+## 8. High Volume Customers
 
 ```sql
 SELECT [Customer ID], COUNT([Order ID]) AS Number_Orders,  FORMAT(SUM(Sales), 'C') AS Total_Sales
@@ -130,9 +132,11 @@ HAVING COUNT([Order ID]) > 10
 ORDER BY SUM(Sales) DESC;
 ```
 
+![alt text](8_TotalSalesByCustomer.png)
+
 **Summary:** Identifies repeat high-value customers for loyalty or targeted promotions.
 
-## 10. Region Sales Contribution Percentage
+## 9. Region Sales Contribution Percentage
 
 ```sql
 WITH TotalSales AS (
@@ -145,9 +149,11 @@ GROUP BY Region
 ORDER BY Sales_Percentage DESC;
 ```
 
+![alt text](9_RegionalSalesPercentage.png)
+
 **Summary:** Measures each region's contribution to total sales, helping focus attention where it matters most.
 
-## 11. Total Sales and Profit by Region
+## 10. Total Sales and Profit by Region
 
 ```sql
 WITH RegionSales AS (
@@ -159,9 +165,11 @@ SELECT * FROM RegionSales
 ORDER BY Total_Sales DESC;
 ```
 
-**Summary:** Provides a regional breakdown of sales and profit for comparative performance review.
+![alt text](10_SalesProfitByRegion.png)
 
-## 12. Customer Sales & Profit Analysis
+**Summary:** This query shows how each region performs in terms of revenue and profit. It highlights areas of strong revenue and identifies regions that may need strategic improvement.
+
+## 11. Customer Sales & Profit Analysis
 
 ```sql
 WITH CustomerLifetimeValue AS (
@@ -174,9 +182,11 @@ SELECT [Customer ID], Lifetime_Sales, Lifetime_Profit,
 FROM CustomerLifetimeValue;
 ```
 
+![alt text](11_CustomerSalesRank.png)
+
 **Summary:** Ranks customers by total spending, revealing top revenue generators.
 
-## 13. Discount Impact on Profitability
+## 12. Discount Impact on Profitability
 
 ```sql
 SELECT Discount, FORMAT(AVG(Profit), 'C') AS Avg_Profit
@@ -185,9 +195,11 @@ GROUP BY Discount
 ORDER BY Discount;
 ```
 
+![alt text](12_ProfitByDiscount.png)
+
 **Summary:** Analyzes average profit at different discount levels to evaluate if discounts are too aggressive.
 
-## 14. Yearly Sales Growth
+## 13. Yearly Sales Growth
 
 ```sql
 WITH YearlySales AS (
@@ -195,15 +207,17 @@ WITH YearlySales AS (
     FROM Superstore
     GROUP BY YEAR([Order Date])
 )
-SELECT Year, FORMAT(Total_Sales, 'C'), 
+SELECT Year, FORMAT(Total_Sales, 'C') As Current_Sales, 
        LAG(FORMAT(Total_Sales, 'C'),1,0) OVER (ORDER BY Year) AS Previous_Year_Sales,
        ROUND((Total_Sales - LAG(Total_Sales) OVER (ORDER BY Year)) * 100.0 / LAG(Total_Sales) OVER (ORDER BY Year), 2) AS YoY_Growth
 FROM YearlySales;
 ```
 
+![alt text](13_YearlySalesGrowth.png)
+
 **Summary:** Tracks year-over-year growth to evaluate business trajectory.
 
-## 15. Discount by Category
+## 14. Discount by Category
 
 ```sql
 SELECT Category, ROUND(AVG(Discount), 2) AS Avg_Discount
@@ -212,9 +226,11 @@ GROUP BY Category
 ORDER BY Avg_Discount DESC;
 ```
 
+![alt text](14_DiscountByCategory.png)
+
 **Summary:** Shows which categories are discounted most frequently to assess potential impact on profit.
 
-## 16. Monthly Sales Trend
+## 15. Monthly Sales Trend
 
 ```sql
 WITH MonthlySales AS (
@@ -226,5 +242,7 @@ SELECT Month, FORMAT(Total_Sales, 'C') AS Total_Sales,
        FORMAT(LEAD(Total_Sales) OVER (ORDER BY Month) - Total_Sales, 'C') AS Sales_Change
 FROM MonthlySales;
 ```
+
+![alt text](15_MonthlySalesTrend.png)
 
 **Summary:** Highlights month-to-month changes in sales to support proactive business planning.
