@@ -1,8 +1,7 @@
 
-# Superstore Data Analysis Insights
-
-This README file presents a collection of SQL queries designed to analyze data from the Superstore dataset. The goal is to provide valuable insights to drive data-informed business strategies.
-
+# Project Background
+The dataset contains almost 10,000 transaction records related to sales operations across the United States. It includes various details such as order dates, shipping times, customer information, regional data, and product specifics. Products are organized into three main categories—Furniture, Office Supplies, and Technology—with further segmentation into sub-categories. Additionally, the dataset captures financial metrics like Sales, Profit, Discount, and Quantity sold, allowing for a comprehensive analysis of performance across different dimensions. The data is well-structured and clean, making it suitable for business intelligence insights.
+Insights and recommendations are provided on the following key areas:
 
 
 # Data Structure & Initial Checks
@@ -242,7 +241,7 @@ WITH YearlySales AS (
 )
 SELECT Year, FORMAT(Total_Sales, 'C') As Current_Sales, 
        LAG(FORMAT(Total_Sales, 'C'),1,0) OVER (ORDER BY Year) AS Previous_Year_Sales,
-       ROUND((Total_Sales - LAG(Total_Sales) OVER (ORDER BY Year)) * 100.0 / LAG(Total_Sales) OVER (ORDER BY Year), 2) AS YoY_Growth
+       ISNULL(ROUND((Total_Sales - LAG(Total_Sales) OVER (ORDER BY Year)) * 100.0 / LAG(Total_Sales) OVER (ORDER BY Year), 2), 0) AS YoY_Growth
 FROM YearlySales;
 ```
 
