@@ -29,7 +29,7 @@ ORDER BY SUM(Profit) DESC;
 
 **Summary:** This ranks product categories by profit. It helps prioritize which product lines to expand or promote.
 
-
+---
 
 ## 2. Sales and Profit Trends by Sub-Category
 
@@ -47,7 +47,7 @@ ORDER BY SUM(Sales) DESC;
 
 **Summary:** Identifies sub-categories that drive sales and profit, helping optimize inventory and pricing strategies.
 
-
+---
 
 ## 3. Profitability vs. Sales for Each Category
 
@@ -66,7 +66,7 @@ ORDER BY Profit_Margin_Percentage DESC;
 
 **Summary:** Compares sales to profit margin to reveal which high-sales categories may have poor profitability.
 
-
+---
 
 ## 4. Monthly Sales Trend Analysis
 
@@ -84,7 +84,7 @@ ORDER BY Month ASC;
 
 **Summary:** Tracks monthly sales and profit trends to help identify peak periods and seasonal impacts.
 
-
+---
 
 ## 5. Profitable Categories Using CTE
 
@@ -104,7 +104,7 @@ SELECT * FROM SalesSummary WHERE CONVERT(float,REPLACE(REPLACE(Total_Profit, ','
 
 **Summary:** Filters categories to show only those exceeding a $10,000 profit threshold, spotlighting potential growth areas.
 
-
+---
 
 ## 6. Regional Sales with Window Functions
 
@@ -124,7 +124,7 @@ ORDER BY Region, Category, SubCategory;
 
 **Summary:** Combines individual sales records with regional totals for deeper performance insights.
 
-
+---
 
 ## 7. Pivoting Sales Data by Region and Category
 
@@ -143,7 +143,7 @@ GROUP BY Category;
 
 **Summary:** Restructures data to compare category sales across all regions, useful for targeting regional strategies.
 
-
+---
 
 ## 8. High Volume Customers
 
@@ -159,7 +159,7 @@ ORDER BY SUM(Sales) DESC;
 
 **Summary:** Identifies repeat high-value customers for loyalty or targeted promotions.
 
-
+---
 
 ## 9. Region Sales Contribution Percentage
 
@@ -178,7 +178,7 @@ ORDER BY Sales_Percentage DESC;
 
 **Summary:** Measures each region's contribution to total sales, helping focus attention where it matters most.
 
-
+---
 
 ## 10. Total Sales and Profit by Region
 
@@ -196,7 +196,7 @@ ORDER BY Total_Sales DESC;
 
 **Summary:** This query shows how each region performs in terms of revenue and profit. It highlights areas of strong revenue and identifies regions that may need strategic improvement.
 
-
+---
 
 ## 11. Customer Sales & Profit Analysis
 
@@ -215,7 +215,7 @@ FROM CustomerLifetimeValue;
 
 **Summary:** Ranks customers by total spending, revealing top revenue generators.
 
-
+---
 
 ## 12. Discount Impact on Profitability
 
@@ -230,7 +230,7 @@ ORDER BY Discount;
 
 **Summary:** Analyzes average profit at different discount levels to evaluate if discounts are too aggressive.
 
-
+---
 
 ## 13. Yearly Sales Growth
 
@@ -250,7 +250,7 @@ FROM YearlySales;
 
 **Summary:** Tracks year-over-year growth to evaluate business trajectory.
 
-
+---
 
 ## 14. Discount by Category
 
@@ -265,7 +265,7 @@ ORDER BY Avg_Discount DESC;
 
 **Summary:** Shows which categories are discounted most frequently to assess potential impact on profit.
 
-
+---
 
 ## 15. Monthly Sales Trend
 
