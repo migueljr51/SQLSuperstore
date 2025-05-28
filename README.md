@@ -7,7 +7,7 @@ Insights and recommendations are provided on the following key areas:
 # Data Structure & Initial Checks
 The companies main database structure as seen below consists of one table: Superstore, with a total row count of 9994 records. A description of each table is as follows:
 
-![alt text](ERD.png)
+![alt text](Images/ERD.png)
 
 
 # Insights 
@@ -24,7 +24,7 @@ GROUP BY Category
 ORDER BY SUM(Profit) DESC;
 ```
 
-![alt text](1_ProfitsByCategory.png)
+![alt text](Images/1_ProfitsByCategory.png)
 
 **Summary:** This ranks product categories by profit. It helps prioritize which product lines to expand or promote.
 
@@ -42,7 +42,7 @@ GROUP BY SubCategory
 ORDER BY SUM(Sales) DESC;
 ```
 
-![alt text](2_SalesAndProfitTrend.png)
+![alt text](Images/2_SalesAndProfitTrend.png)
 
 **Summary:** Identifies sub-categories that drive sales and profit, helping optimize inventory and pricing strategies.
 
@@ -61,7 +61,7 @@ GROUP BY Category
 ORDER BY Profit_Margin_Percentage DESC;
 ```
 
-![alt text](3_ProfitPercentageByCategory.png)
+![alt text](Images/3_ProfitPercentageByCategory.png)
 
 **Summary:** Compares sales to profit margin to reveal which high-sales categories may have poor profitability.
 
@@ -79,7 +79,7 @@ GROUP BY FORMAT([Order Date], 'yyyy-MM')
 ORDER BY Month ASC;
 ```
 
-![alt text](4_MonthlySalesTrend.png)
+![alt text](Images/4_MonthlySalesTrend.png)
 
 **Summary:** Tracks monthly sales and profit trends to help identify peak periods and seasonal impacts.
 
@@ -99,7 +99,7 @@ WITH SalesSummary AS (
 SELECT * FROM SalesSummary WHERE CONVERT(float,REPLACE(REPLACE(Total_Profit, ',', ''), '$', '')) > 10000;
 ```
 
-![alt text](5_SalesProfitByCategory.png)
+![alt text](Images/5_SalesProfitByCategory.png)
 
 **Summary:** Filters categories to show only those exceeding a $10,000 profit threshold, spotlighting potential growth areas.
 
@@ -119,7 +119,7 @@ FROM Superstore
 ORDER BY Region, Category, SubCategory;
 ```
 
-![alt text](6_RegionalSales.png)
+![alt text](Images/6_RegionalSales.png)
 
 **Summary:** Combines individual sales records with regional totals for deeper performance insights.
 
@@ -138,7 +138,7 @@ FROM Superstore
 GROUP BY Category;
 ```
 
-![alt text](7_SalesDataByRegionAndCategory.png)
+![alt text](Images/7_SalesDataByRegionAndCategory.png)
 
 **Summary:** Restructures data to compare category sales across all regions, useful for targeting regional strategies.
 
@@ -154,7 +154,7 @@ HAVING COUNT([Order ID]) > 10
 ORDER BY SUM(Sales) DESC;
 ```
 
-![alt text](8_TotalSalesByCustomer.png)
+![alt text](Images/8_TotalSalesByCustomer.png)
 
 **Summary:** Identifies repeat high-value customers for loyalty or targeted promotions.
 
@@ -173,7 +173,7 @@ GROUP BY Region
 ORDER BY Sales_Percentage DESC;
 ```
 
-![alt text](9_RegionalSalesPercentage.png)
+![alt text](Images/9_RegionalSalesPercentage.png)
 
 **Summary:** Measures each region's contribution to total sales, helping focus attention where it matters most.
 
@@ -191,7 +191,7 @@ SELECT * FROM RegionSales
 ORDER BY Total_Sales DESC;
 ```
 
-![alt text](10_SalesProfitByRegion.png)
+![alt text](Images/10_SalesProfitByRegion.png)
 
 **Summary:** This query shows how each region performs in terms of revenue and profit. It highlights areas of strong revenue and identifies regions that may need strategic improvement.
 
@@ -210,7 +210,7 @@ SELECT [Customer ID], Lifetime_Sales, Lifetime_Profit,
 FROM CustomerLifetimeValue;
 ```
 
-![alt text](11_CustomerSalesRank.png)
+![alt text](Images/11_CustomerSalesRank.png)
 
 **Summary:** Ranks customers by total spending, revealing top revenue generators.
 
@@ -225,7 +225,7 @@ GROUP BY Discount
 ORDER BY Discount;
 ```
 
-![alt text](12_ProfitByDiscount.png)
+![alt text](Images/12_ProfitByDiscount.png)
 
 **Summary:** Analyzes average profit at different discount levels to evaluate if discounts are too aggressive.
 
@@ -245,7 +245,7 @@ SELECT Year, FORMAT(Total_Sales, 'C') As Current_Sales,
 FROM YearlySales;
 ```
 
-![alt text](13_YearlySalesGrowth.png)
+![alt text](Images/13_YearlySalesGrowth.png)
 
 **Summary:** Tracks year-over-year growth to evaluate business trajectory.
 
@@ -260,7 +260,7 @@ GROUP BY Category
 ORDER BY Avg_Discount DESC;
 ```
 
-![alt text](14_DiscountByCategory.png)
+![alt text](Images/14_DiscountByCategory.png)
 
 **Summary:** Shows which categories are discounted most frequently to assess potential impact on profit.
 
@@ -279,6 +279,6 @@ SELECT Month, FORMAT(Total_Sales, 'C') AS Total_Sales,
 FROM MonthlySales;
 ```
 
-![alt text](15_MonthlySalesTrend.png)
+![alt text](Images/15_MonthlySalesTrend.png)
 
 **Summary:** Highlights month-to-month changes in sales to support proactive business planning.
